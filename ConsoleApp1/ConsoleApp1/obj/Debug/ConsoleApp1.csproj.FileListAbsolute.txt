@@ -1,0 +1,7 @@
+I:\[GIT]\examples\ConsoleApp1\ConsoleApp1\bin\Debug\ConsoleApp1.exe.config
+I:\[GIT]\examples\ConsoleApp1\ConsoleApp1\bin\Debug\ConsoleApp1.exe
+I:\[GIT]\examples\ConsoleApp1\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
+I:\[GIT]\examples\ConsoleApp1\ConsoleApp1\obj\Debug\ConsoleApp1.csprojResolveAssemblyReference.cache
+I:\[GIT]\examples\ConsoleApp1\ConsoleApp1\obj\Debug\ConsoleApp1.csproj.CoreCompileInputs.cache
+I:\[GIT]\examples\ConsoleApp1\ConsoleApp1\obj\Debug\ConsoleApp1.exe
+I:\[GIT]\examples\ConsoleApp1\ConsoleApp1\obj\Debug\ConsoleApp1.pdb
