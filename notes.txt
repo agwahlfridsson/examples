@@ -1,0 +1,31 @@
+Microsoft.Extensions.DependecyInjection
+Microsoft.Extensions.Hosting
+
+https://www.youtube.com/watch?v=dLR_D2IJE1M
+
+Add a property to app.xaml.cs -> public static IHost? AppHost {get; private set;}
+public App()
+{
+	AppHost = Host.CreateDefaultBuilder()
+		.ConfigureServices((hostContext, services) => 
+		{
+			services.AddSingleton<MainWindow>();
+			services.AddTransient<IDataAccess, DataAccess>(); // here statically linked from other project
+		})
+		.Build();
+}
+protected override async void OnStartup(StartupEventArgs e )
+{
+	await AppHost!.StartAsync();
+	
+	var startupForm = AppHost.Services.GetRequiredService<MainWindow>();
+	startupForm.Show();
+
+	base.OnStartup(e);
+}
+
+protected override async void OnExit(ExitEventArgs e)
+{
+	await AppHost!.StopAsync();
+	base.OnExit(e);
+}
