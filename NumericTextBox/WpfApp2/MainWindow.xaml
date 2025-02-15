@@ -1,0 +1,39 @@
+﻿<Window x:Class="WpfApp2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp2"
+        xmlns:userLib="clr-namespace:UserControlLibrary;assembly=UserControlLibrary"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel Orientation="Vertical">
+        <StackPanel.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+        </StackPanel.Resources>
+        <userLib:NumericTextBox Margin="5"
+                                Decimals="2"
+                                Minimum="-1"
+                                Maximum="100"
+                                x:Name="tbnum">
+            
+        </userLib:NumericTextBox>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="InRange: "/>
+            <TextBlock Text="{Binding ElementName=tbnum, Path=InRange}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Value: "/>
+            <TextBlock Text="{Binding ElementName=tbnum, Path=Value}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Text: "/>
+            <TextBlock Text="{Binding ElementName=tbnum, Path=Text}" />
+        </StackPanel>
+
+
+    </StackPanel>
+</Window>
