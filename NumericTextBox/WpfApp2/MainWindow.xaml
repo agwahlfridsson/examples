@@ -7,33 +7,84 @@
         xmlns:userLib="clr-namespace:UserControlLibrary;assembly=UserControlLibrary"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel Orientation="Vertical">
-        <StackPanel.Resources>
-            <Style TargetType="TextBlock">
-                <Setter Property="Margin" Value="5"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-            </Style>
-        </StackPanel.Resources>
-        <userLib:NumericTextBox Margin="5"
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Vertical">
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </StackPanel.Resources>
+            <userLib:NumericTextBox Margin="5"
                                 Decimals="2"
                                 Minimum="-1"
                                 Maximum="100"
                                 x:Name="tbnum">
-            
-        </userLib:NumericTextBox>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="InRange: "/>
-            <TextBlock Text="{Binding ElementName=tbnum, Path=InRange}" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Value: "/>
-            <TextBlock Text="{Binding ElementName=tbnum, Path=Value}" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Text: "/>
-            <TextBlock Text="{Binding ElementName=tbnum, Path=Text}" />
+
+            </userLib:NumericTextBox>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="InRange: "/>
+                <TextBlock Text="{Binding ElementName=tbnum, Path=InRange}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Value: "/>
+                <TextBlock Text="{Binding ElementName=tbnum, Path=Value}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Text: "/>
+                <TextBlock Text="{Binding ElementName=tbnum, Path=Text}" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="EnableUpdateValueOutOfRange: "/>
+                <TextBlock Text="{Binding ElementName=tbnum, Path=EnableUpdateValueOutOfRange}" />
+            </StackPanel>
         </StackPanel>
 
 
-    </StackPanel>
+
+
+        <StackPanel Orientation="Vertical" Grid.Column="1">
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </StackPanel.Resources>
+            <userLib:NumericTextBox Margin="5"
+                                Decimals="1"
+                                Minimum="-1"
+                                Maximum="100"
+                                    EnableUpdateValueOutOfRange="False"
+                                x:Name="tbnum2">
+
+            </userLib:NumericTextBox>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="InRange: "/>
+                <TextBlock Text="{Binding ElementName=tbnum2, Path=InRange}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Value: "/>
+                <TextBlock Text="{Binding ElementName=tbnum2, Path=Value}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Text: "/>
+                <TextBlock Text="{Binding ElementName=tbnum2, Path=Text}" />
+            </StackPanel>
+
+
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="EnableUpdateValueOutOfRange: "/>
+                <TextBlock Text="{Binding ElementName=tbnum2, Path=EnableUpdateValueOutOfRange}" />
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+
 </Window>

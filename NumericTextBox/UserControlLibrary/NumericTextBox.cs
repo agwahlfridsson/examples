@@ -37,26 +37,23 @@ namespace UserControlLibrary
             set { SetValue(ValueProperty, value); }
         }
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(double), typeof(NumericTextBox), new PropertyMetadata(double.NaN, OnValueUpdate));
+            DependencyProperty.Register("Value", typeof(double), typeof(NumericTextBox), new PropertyMetadata(0.0, OnValueUpdate));
 
         private static void OnValueUpdate(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var tb = d as NumericTextBox;
             if (tb == null) 
                 return;
-
-            var nfi = new NumberFormatInfo
+            if (tb.suppressUpdate == true)
             {
-                NumberDecimalDigits = tb.Decimals,
-                NumberDecimalSeparator = tb.DecimalSeparator
-            };
+                tb.suppressUpdate = false;
+                return;
+            }
 
             var val = (double)tb.Value;
             val = Math.Round(val, tb.Decimals);
-            tb.suppressUpdate = true;
-            tb.Text = string.Format(nfi, "{0:f}", val);
+            tb.Text = string.Format(tb.nfi, "{0:f}", val);
             tb.CaretIndex = tb.Text.Length;
-
         }
 
         public bool InRange
@@ -68,9 +65,20 @@ namespace UserControlLibrary
             DependencyProperty.Register("InRange", typeof(bool), typeof(NumericTextBox), new PropertyMetadata(false));
         #endregion
 
-
+        NumberFormatInfo nfi = new NumberFormatInfo();
         public NumericTextBox()
         {
+            this.Initialized += (s, e) => 
+            {
+                nfi = new NumberFormatInfo
+                {
+                    NumberDecimalDigits = Decimals,
+                    NumberDecimalSeparator = DecimalSeparator
+                };
+                var val = Math.Round(Value, Decimals);
+                Text = string.Format(nfi, "{0:f}", val);
+                CaretIndex = Text.Length;
+            };
             this.PreviewKeyDown += NumericTextBox_PreviewKeyDown;
             this.MouseWheel += NumericTextBox_MouseWheel;
             this.TextChanged += NumericTextBox_TextChanged;
@@ -269,45 +277,30 @@ namespace UserControlLibrary
 
         private void NumericTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (suppressUpdate == true)
-            {
-                suppressUpdate = false;
-                return;
-            }
+            suppressUpdate = true;
 
             if (double.TryParse(Text.Replace(",", "."), CultureInfo.InvariantCulture, out var d))
             {
                 SetValue(d, 0);
-                //if (d >= Minimum && d <= Maximum) // in range
-                //{
-                //    this.Value = d;
-                //    this.InRange = true;
-                //}
-                //else
-                //{
-                //    this.InRange = false;
-                //    if (EnableUpdateValueOutOfRange == true)
-                //    { 
-                //        this.Value = d;
-                //    }
-                //}
             }
         }
         private void SetValue(double newValue)
         {
-            void Set(double value)
+            void Set(double localValue)
             {
-                Value = Math.Round(newValue, Decimals);
+                Value = Math.Round(localValue, Decimals);
                 InRange = Value <= Maximum && Value >= Minimum;
             }
             if (EnableUpdateValueOutOfRange == false) // cap values
             {
                 if (newValue > Maximum) // set Value to maximun if over limit
                 {
+                    suppressUpdate = false;
                     Set(Maximum);
                 }
                 else if (newValue < Minimum) // set Value to minimum if over limit
                 {
+                    suppressUpdate = false;
                     Set(Minimum);
                 }
                 else
