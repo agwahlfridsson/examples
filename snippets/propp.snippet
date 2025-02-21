@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>New prism view model property</Title>
+			<Shortcut>propp</Shortcut>
+			<Description>Inserts a full property of prism BindableBase variant.</Description>
+			<Author>Anders Wahlfridsson</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>Type</ID>
+					<ToolTip>Enter property type</ToolTip>
+					<Default>type</Default>
+				</Literal>
+				<Literal>
+					<ID>FieldName</ID>
+					<ToolTip>Enter property private field name</ToolTip>
+					<Default>name</Default>
+				</Literal>
+				<Literal>
+					<ID>PropName</ID>
+					<ToolTip>Enter property name</ToolTip>
+					<Default>Name</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="CSharp">
+				<![CDATA[
+				private $Type$ $FieldName$;
+				public $Type$ $PropName$
+				{
+					get { return $FieldName$; }
+					set { SetProperty(ref $FieldName$, value); }
+				}
+                ]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
